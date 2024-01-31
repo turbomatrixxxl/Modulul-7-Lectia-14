@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lecția 14-Grafica adaptiva</title>
 
     <!-- Mai întâi normalizarea -->
     <link
@@ -13,16 +12,28 @@
 
     <!-- Cale relativa la fisier stiluri CSS -->
     <link rel="stylesheet" href="./css/styles14.css" />
+
+    <title>Lecția 14-Grafica adaptiva</title>
   </head>
   <body>
     <header>
       <nav>
         <ol style="list-style: upper-roman">
-          <li><a href="#densitatea">Densitatea pixelilor </a></li>
-          <li><a href="#receptive">Imagini receptive </a></li>
-          <li><a href="#fundal">Imagini de fundal receptive </a></li>
-          <li><a href="#img">Elementul receptiv (img)</a></li>
-          <li><a href="#picture"></a>Elementul (picture)</li>
+          <li>
+            <a href="#densitatea"><b>Densitatea pixelilor </b></a>
+          </li>
+          <li>
+            <a href="#receptive"><b>Imagini receptive </b></a>
+          </li>
+          <li>
+            <a href="#fundal"><b>Imagini de fundal receptive </b></a>
+          </li>
+          <li>
+            <a href="#img"><b>Elementul receptiv (img)</b></a>
+          </li>
+          <li>
+            <a href="#picture"><b>Elementul (picture)</b></a>
+          </li>
         </ol>
       </nav>
     </header>
@@ -33,103 +44,902 @@
   -->
       <section>
         <h2 id="densitatea">I.Densitatea pixelilor</h2>
+        <p>
+          <b>Retina-display (retina)</b> – un termen de marketing al companiei
+          Apple, care descrie dispozitivele cu ecrane cu o densitate mare de
+          pixeli. Aceeași dimensiune a ecranului poate conține mai mulți pixeli
+          fizici, datorită faptului că dimensiunea acestora este mai mică.
+          Datorită acestui lucru se îmbunătățește calitatea și claritatea
+          imaginii, făcând culorile mai saturate și mai vibrante.
+        </p>
 
         <ol>
           <li>
             <h3 id="fizici">Pixeli fizici</h3>
+            <p>
+              <b>Pixelii fizici (device pixel sau hardware pixel)</b> – cele mai
+              mici elemente ale oricărui ecran (matricea sa), fiecare având
+              propria sa culoare și luminozitate.
+            </p>
+            <p>
+              <b>Rezoluția ecranului (screen resolution)</b> – un număr de
+              pixeli fizici de pe ecranul unui dispozitiv. De exemplu, o
+              rezoluție de 1920x1080 înseamnă că ecranul are 1920 pixeli în
+              lățime și 1080 pixeli în înălțime. Dacă înmulțim aceste două
+              numere, vom obține numărul total de pixeli pe un astfel de ecran –
+              2073600.
+            </p>
+            <p>
+              <b>Densitatea ecranului (pixel density)</b> – un număr de pixeli
+              fizici pe un inch. Acesta se măsoară în ppi (pixeli pe inch). Cu
+              cât densitatea este mai mare, cu atât dimensiunea pixelilor este
+              mai mică și cu atât sunt mai mulți pe ecran.
+            </p>
           </li>
           <li>
             <h3 id="css">Pixeli CSS</h3>
+            <p>
+              <b>Pixelii CSS (device-independent pixels)</b> – o valoare
+              abstractă care nu depinde de ecranul dispozitivului și este
+              folosită de browser pentru a calcula dimensiunea conținutului de
+              pe pagină.
+            </p>
+            <p>
+              Pe ecranele obișnuite, un pixel CSS corespunde unui pixel al
+              dispozitivului fizic. La scalare și pe ecranele cu o densitate
+              mare de pixeli, poate exista mai mult de un pixel fizic într-un
+              singur pixel CSS.
+            </p>
+            <p>
+              De exemplu, avem un bloc de 2x2 pixeli. Toate dimensiunile
+              elementelor care sunt specificate în CSS sau HTML sunt pixeli CSS.
+            </p>
+            <p>
+              div { <br />
+              width: 2px; <br />
+              height: 2px; <br />
+              }
+            </p>
+            <p>
+              Pe ecranele obișnuite, acesta va ocupa o suprafață de 2x2 pixeli
+              fizici, iar pe ecranele Retina, de exemplu, cu o densitate de 2,
+              același bloc va primi 4x4 pixeli fizici. Adică de două ori mai
+              mult pe orizontală și pe verticală. Astfel, pe ecranele Retina cu
+              o densitate de pixeli de două ori mai mare decât standard, numărul
+              de pixeli este de 4 ori mai mare decât pe cele obișnuite.
+            </p>
           </li>
           <li>
             <h3 id="bitmap">Pixeli bitmap</h3>
+            <p>
+              Pixelii bitmap (bitmap pixels) – sunt cele mai mici entități, care
+              alcătuiesc o imagine bitmap (png, jpg, gif etc.). Fiecare pixel
+              conține informații despre culoarea și locația sa în sistemul de
+              coordonate al imaginii.
+            </p>
+            <p>
+              În cod, dimensiunile imaginii sunt setate în pixeli CSS. La
+              afișarea pe un ecran obișnuit, un pixel bitmap corespunde unui
+              pixel CSS. Pe ecranele Retina cu o densitate de 2, fiecare pixel
+              bitmap este înmulțit cu 4, ceea ce duce la o pierdere a calității
+              imaginii, care nu a fost adaptată pentru ecranele retina.
+            </p>
+            <p>
+              Acesta este motivul pentru care imaginile bitmap pentru ecranele
+              Retina trebuie să aibă mai mulți pixeli. Acest lucru garantează
+              lizibilitatea acestora când sunt afișate în browser.
+            </p>
           </li>
           <li>
             <h3 id="grafica">Retinizarea grafica</h3>
+            <p>
+              Ecranele retina necesită resurse special pregătite. Textul și
+              grafica vectorială (SVG) se afișează la fel de bine pe orice
+              ecran, deoarece sunt redate de browser însuși pe baza unui set de
+              puncte și curbe care le conectează. Retinizarea este o tehnică de
+              pregătire a graficii bitmap.
+            </p>
+            <p>
+              Pentru a pregăti grafica bitmap pentru retină, trebuie să
+              exportați din machetă o imagine mai mare. De exemplu, pentru a
+              afișa o fotografie de 200x300 pixeli CSS pe un ecran cu o
+              densitate de 2, trebuie să pregătiți o variantă a acesteia de
+              400x600 pixeli bitmap. Pentru un ecran cu o densitate de 3 această
+              imagine ar trebui să aibă 600x900 pixeli bitmap.
+            </p>
+            <p><b>INTERESANT :</b></p>
+            <p>
+              Pentru grafica web bitmap, este suficient să pregătiți doar
+              versiunile 1x și 2x. Majoritatea oamenilor cu o vedere bună nu vor
+              observa diferența dintre o imagine 2x și 3x, din cauza limitărilor
+              fizice ale ochiului uman, însă greutatea ultimei imagini va fi
+              mult mai mare, ceea ce îi va afecta negativ viteza de încărcare.
+            </p>
+            <p>
+              Procesul de pregătire constă în exportarea imaginilor care sunt de
+              N ori mai mari decât dimensiunea originalului și salvarea lor cu
+              prefixele corespunzătoare @2x și @3x. Pentru original, nu este
+              necesar un prefix.
+            </p>
+            <p>
+              Ulterior, este suficient să setați dimensiunea dorită pentru
+              tag-ul <img /> în codul HTML sau CSS.
+            </p>
+            <p>
+              (img src="icon.png" width="200" height="300" /) <br />
+              (img src="icon@2x.png" width="200" height="300" /) <br />
+              (img src="icon@3x.png" width="200" height="300" /)
+            </p>
+            <p>
+              În exemplu se folosește un serviciu de imagini online. Sunt
+              încărcate trei imagini cu dimensiuni de 320x240 (1x), 640x480 (2x)
+              și 960x720 (3x) pixeli. Dimensiunea tuturor elementelor (img /)
+              este aceeași – 320x240 pixeli CSS. Dacă accesați exemplul de pe
+              telefon sau pur și simplu scalați pagina cu exemplu, veți observa
+              că prima imagine este foarte neclară, a doua își menține calitatea
+              destul de înaltă, iar a treia este întotdeauna clară.
+            </p>
+
+            <!-- Exemplu -->
+            <p><b>Exemplu :</b></p>
+            <div class="body">
+              <!-- Image format from an image service.: https://picsum.photos/id/237/width/height -->
+
+              <!-- x1 -->
+              <img
+                src="https://picsum.photos/id/237/320/240"
+                alt="Cute puppy"
+                width="320"
+                height="240"
+              />
+
+              <!-- x2 -->
+              <img
+                src="https://picsum.photos/id/237/640/480"
+                alt="Cute puppy"
+                width="320"
+                height="240"
+              />
+
+              <!-- x3 -->
+              <img
+                src="https://picsum.photos/id/237/960/720"
+                alt="Cute puppy"
+                width="320"
+                height="240"
+              />
+            </div>
+
+            <p><b>ATENTIE : </b></p>
+            <p>
+              Acest lucru nu înseamnă că trebuie să exportați și să utilizați
+              întotdeauna imaginile cele mai mari. La această etapă, am abordat
+              problema și am învățat cum să folosim grafica bitmap pentru ecrane
+              Retina. În continuare, vom explora metodele prin care putem
+              încărca imagini diferite în funcție de lățimea și densitatea
+              specifică a fiecărui ecran.
+            </p>
           </li>
         </ol>
-
-        <!-- Exemplu -->
-        <div>
-          <p><b>Exemplu :</b></p>
-        </div>
       </section>
 
       <!-- II.Imagini receptive
   -->
       <section>
         <h2 id="receptive">II.Imagini receptive</h2>
-        <p></p>
+        <p>
+          Închipuiți-vă o imagine de 1200x600 pixeli. Aceasta arată excelent pe
+          un ecran lat. Dar ce se va întâmpla dacă vom deschide pagina pe
+          telefon sau tabletă? Nimic bun. Imaginea va rămâne cu aceeași lățime
+          de 1200px și va apărea o bară de scrolare orizontală, însă pe ecranele
+          Retina această imagine va părea neclară.
+        </p>
+        <p>
+          <b>Imaginile receptive</b> – un termen folosit pentru a descrie un set
+          de tehnici utilizate în HTML și CSS pentru a face conținutul și
+          imaginile de fundal să arate la fel de bine pe orice dispozitiv,
+          indiferent de dimensiunea ecranului și densitatea pixelilor.
+        </p>
+        <p>
+          Cel mai simplu mod de a aplica receptivitatea este de a folosi o
+          singură imagine pentru toate dispozitivele, aplicându-i un anumit set
+          de proprietăți CSS.
+        </p>
+        <p>
+          /* Proprietățile ar trebui să fie aplicate tuturor imaginilor,<br />
+          de aceea se folosește selectorul de tag. */ <br />
+          img { <br />
+          display: block; <br />
+          max-width: 100%; <br />
+          height: auto; <br />
+          }
+        </p>
+        <ul>
+          <li>
+            Imaginea trebuie făcută de tip bloc pentru a înlătura "golul"
+            inferior al elementului de tip inline.
+          </li>
+          <li>
+            O lățime maximă de 100% garantează că imaginea va fi micșorată dacă
+            este necesar, dar nu va fi întinsă mai mult de 100% din lățimea sa
+            originală (pentru a nu pierde calitatea).
+          </li>
+          <li>
+            Înălțimea automată este setată astfel încât proporțiile originale
+            ale imaginii să fie salvate la modificarea lățimii.
+          </li>
+          <p><b>ATENȚIE :</b></p>
+          <p>
+            Iată cum funcționează tehnica unei imagini receptive – o singură
+            imagine pentru toate dispozitivele care se adaptează la lățimea
+            curentă a elementului părinte.
+          </p>
+          <p>
+            Haideți să creăm un container pentru imaginea div.thumb, căruia îi
+            vom seta o lățime minimă și maximă. Imaginii îi asociem proprietăți
+            receptive. Acum imaginea va umple mereu containerul, modificându-și
+            dimensiunea în funcție de lățimea elementului părinte.
+          </p>
 
-        <!-- Exemplu -->
-        <div>
-          <p><b>Exemplu :</b></p>
-        </div>
+          <!-- Exemplu -->
+          <div class="img">
+            <p><b>Exemplu :</b></p>
+            <div class="thumb">
+              <img src="https://unsplash.it/960/480" alt="A random image" />
+            </div>
+          </div>
+
+          <p><b>ATENTIE :</b></p>
+          <p>
+            Această metodă de gestionare a imaginilor de conținut nu este
+            suficient de complexă pentru a aborda problema ecranelor Retina și a
+            dimensiunilor mari ale imaginilor pe dispozitivele mobile, însă
+            reprezintă un punct de plecare promițător.
+          </p>
+        </ul>
       </section>
 
       <!-- III.Imagini de fundal receptive
   -->
       <section>
         <h2 id="fundal">III.Imagini de fundal receptive</h2>
-        <p></p>
+        <p>
+          Pentru a retiniza o imagine de fundal, trebuie să setăm dimensiunea
+          imaginii de fundal egală cu dimensiunea elementului în sine.
+        </p>
+        <p>
+          .box { <br />
+          width: 200px; <br />
+          height: 300px; <br />
+          background-image: url('photo@2x.png'); <br />
+          background-size: 200px 300px; <br />
+          }
+        </p>
+        <p>
+          În cazul în care elementul nu are o lățime și o înălțime fixă, pentru
+          dimensiunea fundalului poate fi setată valoarea cover, astfel încât
+          fundalul să umple complet elementul.
+        </p>
+        <p>
+          .box { <br />
+          background-image: url('photo@2x.png'); <br />
+          background-size: cover; <br />
+          }
+        </p>
+        <p>
+          Cu o astfel de abordare, browserul va încărca imaginea de 2x pe orice
+          ecran, ceea ce nu este ideal. Prin urmare, există funcții media care
+          permit determinarea densității pixelilor ecranului în CSS. În cadrul
+          unui astfel de set de funcții media, vom redefini calea către imaginea
+          de fundal.
+        </p>
+        <p>
+          /* Stiluri de bază și imagine 1x */ <br />
+          .box { <br />
+          width: 480px; <br />
+          height: 320px; <br />
+          background-image: url('photo.png'); <br />
+          background-size: 480px 320px; <br />
+          } <br />
+          <br />
+          /* Redefinim calea cătrea imaginea 2x dacă <br />
+          dimensiunea ecranului este de cel puțin 2 */ <br />
+          @media (min-device-pixel-ratio: 2), <br />
+          (min-resolution: 192dpi), <br />
+          (min-resolution: 2dppx) { <br />
+          .box { <br />
+          background-image: url('photo@2x.png'); <br />
+          } <br />
+          }
+        </p>
+        <p>
+          Funcția media min-device-pixel-ratio specifică valoarea numerică a
+          densității pixelilor ecranului – raportul dintre pixelii fizici și
+          CSS. De asemenea, trebuie să specificăm funcția min-resolution cu două
+          valori diferite.
+        </p>
+        <ul>
+          <li>
+            dpi (dots per inch) – numărul de pixeli fizici pe un inch al
+            ecranului. Pe ecranele cu o densitate standard de pixeli există 96
+            de puncte într-un inch.
+          </li>
+          <li>
+            dppx (dots per pixel) – numărul de pixeli fizici într-un pixel CSS,
+            cu alte cuvinte este densitatea pixelilor. 1dppx = 96dpi.
+          </li>
+          <p>
+            Funcția media min-device-pixel-ratio este compatibilă cu unele
+            browsere numai dacă este utilizat un prefix vendor, așa că dacă
+            procesăm acest cod cu un auto-prefixer vom obține varianta finală.
+          </p>
+          <p>
+            .box { <br />
+            width: 480px; <br />
+            height: 320px; <br />
+            background-image: url('photo.png'); <br />
+            background-size: 480px 320px; <br />
+            } <br />
+            <br />
+            @media (min-device-pixel-ratio: 2), <br />
+            (-webkit-min-device-pixel-ratio: 2), <br />
+            (min-resolution: 192dpi), <br />
+            (min-resolution: 2dppx) { <br />
+            .box { <br />
+            background-image: url('photo@2x.png'); <br />
+            } <br />
+            }
+          </p>
+          <p>UTIL :</p>
+          <p>
+            Un astfel de amestec de funcții media și valorile acestora este
+            necesar, deoarece standardizarea între diferite browsere încă nu
+            există.
+          </p>
+          <p>
+            În exemplu este setată aceeași imagine de fundal cu dimensiuni
+            diferite pentru ecranele cu o densitate de pixeli standard (1x) și
+            dublă (2x).
+          </p>
 
-        <!-- Exemplu -->
-        <div>
-          <p><b>Exemplu :</b></p>
-        </div>
+          <!-- Exemplu -->
+          <div>
+            <p><b>Exemplu :</b></p>
+            <div class="box1"></div>
+          </div>
+
+          <p>
+            Dacă deschidem instrumentele de dezvoltare și accesăm fila Network,
+            vom vedea că este descărcată o singură imagine – potrivită pentru
+            densitatea ecranului pe care este deschisă pagina web. Când
+            deschidem pagina de pe un Macbook Pro 15" 2017 cu o densitate de
+            pixeli a ecranului de 2, browserul va descărca o imagine de două ori
+            mai mare decât cea standard.
+          </p>
+        </ul>
       </section>
 
       <!-- IV.Elementul receptiv (img)  -->
       <section>
         <h2 id="img">IV.Elementul receptiv (img)</h2>
-        <p></p>
+        <p>
+          Elementul receptiv <img /> este folosit de browser pentru a descărca
+          imaginea furnizată de developeri care este potrivită dispozitivului
+          curent. Developerul specifică o listă de imagini disponibile pentru
+          descărcare, iar browserul, în funcție de dimensiunea ecranului și
+          densitatea de pixeli a dispozitivului, o selectează pe cea mai
+          potrivită.
+        </p>
+        <p>
+          De exemplu, developerul a specificat două imagini disponibile –
+          300×300 și 600×600pixeli. Dacă o imagine de 300×300 este suficientă
+          pentru browser, obținem o economie de patru ori mai mare în greutatea
+          imaginii descărcate. Cu cât dimensiunea ecranului dispozitivului este
+          mai mică, cu atât beneficiile acestei abordări sunt mai mari.
+          Economisirea traficului pe un dispozitiv mobil poate ajunge la 70-90%
+          comparativ cu desktop.
+        </p>
 
         <ol>
           <li>
             <h3 id="srcset">Atributul srcset</h3>
+            <p>
+              Acesta definește o listă de versiuni ale aceleiași imagini cu
+              dimensiuni diferite. Nu merită să încercați să descărcați imagini
+              diferite (după conținut sau format) folosind această tehnică,
+              deoarece browserul ține cont doar de dimensiune și consideră că
+              tot ceea ce este trecut la srcset sunt versiunile aceleiași
+              imagini.
+            </p>
+            <p>(img srcset="" src="" alt="" /)</p>
           </li>
           <li>
             <h3 id="descriptorul">Descriptorul x</h3>
+            <p>
+              Cel mai simplu mod de a folosi un element receptiv <img /> este
+              prin utilizarea descriptorului x, care spune literalmente
+              browserului pentru ce densitate de ecran este potrivită această
+              versiune a imaginii.
+            </p>
+            <p>
+              (img <br />
+              srcset="photo.jpg 1x, photo@2x.jpg 2x" <br />
+              src="photo.jpg" <br />
+              alt="Descrierea imaginii pentru toate versiunile" <br />
+              /)
+            </p>
+            <p>
+              În atributul src este specificată versiunea imaginii în calitate
+              standard, care va fi folosită dacă browserul este vechi și nu știe
+              despre srcset. În atributul srcset specificăm versiunile 1x și 2x
+              ale imaginii, separând declarațiile cu o virgulă. Dacă pagina este
+              deschisă pe un dispozitiv cu o densitate de pixeli de 2 sau mai
+              mare, în locul imaginii standard va fi folosită imaginea
+              photo@2x.jpg.
+            </p>
+            <p>
+              În exemplu, atributul srcset specifică imaginile standard și cele
+              cu densitate dublă, precum și imaginea implicită originală din
+              atributul src.
+            </p>
+
+            <!-- Exemplu -->
+            <div>
+              <p><b>Exemplu :</b></p>
+              <div class="thumb1">
+                <img
+                  srcset="
+                    https://picsum.photos/id/237/320/240 1x,
+                    https://picsum.photos/id/237/640/480 2x
+                  "
+                  src="https://picsum.photos/id/237/320/240"
+                  alt="Cute puppy"
+                />
+              </div>
+            </div>
+
+            <p>
+              Dacă deschidem instrumentele de dezvoltare și accesăm fila
+              Network, vom vedea că este descărcată doar o singură imagine,
+              potrivită pentru densitatea ecranului pe care este deschisă pagina
+              web. La conectarea de pe un Macbook Pro 15" 2017, densitate
+              pixelilor ecranului este egală cu 2, atunci browserul va descărca
+              o imagine care are un descriptor de 2x.
+            </p>
+            <p>
+              Singurul dezavantaj al acestei abordări este numărul limitat de
+              criterii pe care browserul le folosește pentru a alege o imagine –
+              doar densitatea pixelilor ecranului. Imaginile receptive sunt
+              folosite în macheta receptivă, în care dimensiunile secțiunilor se
+              modifică în funcție de dimensiunea ferestrei de vizualizare.
+            </p>
+            <p>
+              Setarea unor dimensiuni stricte ale imaginii nu este întotdeauna
+              posibilă, deoarece atunci când dimensiunea ferestrei de
+              vizualizare este mărită, va fi necesară afișarea unei imagini de
+              300x200, într-o secțiune cu dimensiunea de 600x400 pixeli sau mai
+              mult.
+            </p>
+            <p>
+              Setarea unor dimensiuni stricte ale imaginii nu este întotdeauna
+              posibilă, deoarece atunci când dimensiunea ferestrei de
+              vizualizare este mărită, va fi necesară afișarea unei imagini de
+              300x200, într-o secțiune cu dimensiunea de 600x400 pixeli sau mai
+              mult.
+            </p>
           </li>
           <li>
             <h3 id="descriptorulw">Descriptorul w</h3>
+            <p>
+              Oferim în continuare aceeași imagine în diferite dimensiuni, dar
+              în același timp furnizăm browserului mai multe informații, astfel
+              încât acesta să poată alege imaginea potrivită pentru el însuși pe
+              baza densității pixelilor, a dimensiunii ferestrei de vizualizare
+              și a dimensiunii imaginii originale.
+            </p>
+            <p>
+              (img <br />
+              srcset="photo-300.jpg 300w, photo-600.jpg 600w, photo-1200.jpg
+              1200w" <br />
+              src="photo-300.jpg" <br />
+              alt="Descrierea imaginii pentru toate versiunile" <br />
+              /)
+            </p>
+            <p>
+              Prin etichetarea fiecărei imagini cu descriptorul w, în care este
+              specificată lățimea imaginii respective în pixeli, lăsăm toate
+              calculele și alegerea imaginii în seama browserului.
+            </p>
+            <p>UTIL :</p>
+            <p>
+              Dacă imaginea photo-600.jpg are dimensiune de 600x400 pixeli,
+              atunci o etichetăm cu descriptorul 600w. În numele fișierului
+              imaginii, indicăm lățimea fizică a acesteia, pentru a nu o uita,
+              deoarece pot exista mai multe versiuni ale imaginii.
+            </p>
           </li>
           <li>
             <h3 id="sizes">Atributul sizes</h3>
+            <p>
+              Atributul sizes trebuie folosit, atunci când este utilizat
+              descriptorul w, adică când acesta se leagă de dimensiunile fizice
+              ale unei imagini, pentru a indica browserului dimensiunea
+              aproximativă a pânzei pe care browserul va reda imaginea.
+              Dimensiunile pot fi specificate atât în pixeli, cât și în unități
+              relative.
+            </p>
+            <p>
+              De exemplu, dacă imaginea de pe ecran va fi întotdeauna de 300px,
+              este suficient să specificați doar o valoare.
+            </p>
+            <p>
+              (img <br />
+              srcset="photo-300.jpg 300w, photo-600.jpg 600w, photo-1200.jpg
+              1200w" <br />
+              sizes="300px" <br />
+              src="photo-300.jpg" <br />
+              alt="Descrierea imaginii pentru toate versiunile" <br />
+              /)
+            </p>
+            <p>
+              În cazul în care imaginea trebuie să fie 100% din lățimea
+              ferestrei de vizualizare pe dispozitive mobile de până la 600px,
+              300px pe ecrane de 601-900px și 600px pe ecrane mai late, valoarea
+              sizes va include interogările media.
+            </p>
+            <p>
+              (img <br />
+              srcset="photo-300.jpg 300w, photo-600.jpg 600w, photo-1200.jpg
+              1200w" <br />
+              sizes="(min-width: 900px) 600px, (min-width: 600px) 300px, 100vw"
+              <br />
+              src="photo-300.jpg" <br />
+              alt="Descrierea imaginii pentru toate versiunile" <br />
+              /)
+            </p>
+            <ul>
+              <li>
+                (min-width: 900px) 600px – cu o lățime a ferestrei de
+                vizualizare de la 900px, dimensiunea imaginii va fi de 600px.
+              </li>
+              <li>
+                (min-width: 600px) 300px – cu o lățime a ferestrei de
+                vizualizare de la 600px, dimensiunea imaginii va fi de 300px.
+              </li>
+              <li>
+                100vw – lățimea completă a ferestrei de vizualizare. Valoarea
+                implicită care este specificată ultima.
+              </li>
+            </ul>
+            <p>ATENTIE :</p>
+            <p>
+              Browserul citește expresiile media specificate în atributul sizes
+              de la stânga la dreapta și o alege pe prima care se potrivește.
+              Prin urmare, trebuie acordată o atenție deosebită ordinii
+              declarațiilor.
+            </p>
           </li>
           <li>
             <h3 id="alege">Cum alege browserul</h3>
+            <p>
+              Browserul selectează imaginea folosind un algoritm foarte simplu –
+              înmulțește dimensiunea pânzei (valoarea sizes) cu densitatea
+              pixelilor și alege imaginea cea mai apropiată cu dimensiunea
+              potrivită.
+            </p>
+            <p>
+              Ilustrația prezintă un desktop și un smartphone cu o lățime a
+              imaginii de 100% din lățimea ferestrei de vizualizare. Vom scrie
+              marcajul unui element receptiv <img /> pentru această situație.
+            </p>
+            <p>
+              (img <br />
+              srcset="img-1200x714.png 1200w, img-3000x1768.png 3000w" <br />
+              sizes="100vw" <br />
+              src="img.png" <br />
+              alt="Descrierea imaginii pentru toate versiunile" <br />
+              /)
+            </p>
+            <p>
+              Browserul înmulțește lățimea ferestrei de vizualizare cu
+              densitatea pixelilor.
+            </p>
+            <ul>
+              <li>
+                1680 * 2 = 3360 – în ilustrație este img-3000x1768.png pentru
+                desktop.
+              </li>
+              <li>
+                375 * 3 = 1125 – în ilustrație este img-1200x714.png pentru
+                smartphone.
+              </li>
+              <p>
+                Dacă o valoare fixă a lățimii imaginii este setată pentru sizes,
+                browserul o va înmulți cu densitatea pixelilor. De exemplu,
+                sizes are setată dimensiunea de 400px.
+              </p>
+              <p>
+                (img <br />
+                srcset=" photo-300.jpg 300w, photo-600.jpg 600w, photo-900.jpg
+                900w, photo-1200.jpg 1200w " <br />
+                sizes="400px" <br />
+                src="photo-300.jpg" <br />
+                alt="Descrierea imaginii pentru toate versiunile" <br />
+                /)
+              </p>
+              <ul>
+                <li>
+                  400 * 2 = 800 – pentru desktop va fi aleasă imaginea cea mai
+                  apropiată de 800px și anume photo-900.jpg
+                </li>
+                <li>
+                  400 * 3 = 1200 – pentru smartphone va fi aleasă imaginea cea
+                  mai apropiată de 1200px, și anume photo-1200.jpg
+                </li>
+              </ul>
+              <p>
+                Asta înseamnă că imaginea mai mare va fi întotdeauna aleasă
+                pentru dispozitivele mobile? Nu întotdeauna, browserul alege
+                imaginea care se potrivește cel mai bine situației.
+              </p>
+              <p><b>UTIL :</b></p>
+              <p>
+                Spre deosebire de un developer care cunoaște doar dimensiunea
+                imaginii și dimensiunea aproximativă a pânzei pe care va fi
+                afișată, browserul cunoaște toate caracteristicile tehnice
+                importante ale dispozitivului pe care a fost deschisă pagina
+                web. În plus, browserul poate lua în considerare și alți
+                factori, cum ar fi viteza conexiunii la Internet și starea de
+                încărcare a bateriei.
+              </p>
+            </ul>
           </li>
         </ol>
-
-        <!-- Exemplu -->
-        <div>
-          <p><b>Exemplu :</b></p>
-        </div>
       </section>
 
       <!-- V.Elementul <picture>
   -->
       <section>
         <h2 id="picture">V.Elementul (picture)</h2>
-        <p></p>
+        <p>
+          După cum am înțeles deja, elementul receptiv (img /) permite să
+          încărcăm diferite versiuni (dimensiuni) ale aceleiași imagini.
+          Elementul (picture) este folosit dacă trebuie încărcate imagini de
+          diferite formate (extensii), imagini cu o geometrie diferită
+          (decupare) sau imagini pentru a suporta
+          <a href="https://webkit.org/blog/8840/dark-mode-support-in-webkit/"
+            >modul întunecat</a
+          >.
+        </p>
+        <p><b>UTIL :</b></p>
+        <p>
+          În fiecare situație este necesar să folosim un instrument potrivit, în
+          cele mai multe cazuri elementul receptiv (img) va fi suficient,
+          nefiind necesară folosirea elementului (picture) peste tot.
+        </p>
 
         <ol>
           <li>
             <h3 id="intaxa">Sintaxa</h3>
+            <p>
+              Elementul (picture) reprezintă un container pentru unul sau mai
+              multe elemente (source), în care sunt listate opțiunile posibile
+              și un element necesar (img).
+            </p>
+            <p>
+              (picture) <br />
+              (source srcset="" media="" sizes="" type="" /) <br />
+              (source srcset="" media="" sizes="" type="" /) <br />
+              (img src="" alt="" /) <br />
+              (/picture)
+            </p>
+            <ul>
+              <li>
+                Browserul va verifica fiecare dintre elementele (source) și-l va
+                selecta pe cel mai potrivit. Pentru a selecta imaginea optimă,
+                browserul analizează atributele srcset, media, sizes și type.
+              </li>
+              <li>
+                Dacă niciuna dintre opțiuni nu se potrivește, va fi selectată
+                imaginea specificată în atributul src al elementului (img /).
+              </li>
+              <li>
+                Imaginea selectată va fi redată pe pânza ocupată de elementul
+                (img).
+              </li>
+            </ul>
           </li>
           <li>
             <h3 id="suportul">Suportul pentru formate moderne</h3>
+            <p>
+              Elementul (picture) este folosit pentru a încărca imagini în
+              formate moderne (cum ar fi webp). Pentru browserele care nu
+              suportă astfel de formate, imaginea implicită este specificată
+              într-un format alternativ (de exemplu jpg sau png). Atributul type
+              specifică tipul MIME al imaginii. Dacă browserul nu-l suportă,
+              atunci elementul (source) este omis.
+            </p>
+            <p>
+              Următorul exemplu definește un element (picture), care va permite
+              browserelor să încarce photo.webp, oferind în același timp o
+              alternativă photo.jpg pentru browserele care încă nu suportă webp.
+            </p>
+            <p>
+              (picture) <br />
+              (source srcset="photo.webp 1x, photo@2x.webp 2x" type="image/webp"
+              /) <br />
+              (source srcset="photo.jpg 1x, photo@2x.jpg 2x" type="image/jpeg"
+              /) <br />
+              (img src="photo.jpg" alt="Pisică" /) <br />
+              (/picture)
+            </p>
+            <p>
+              Toate variantele imaginilor disponibile sunt enumerate în
+              tag-urile (source), care vor fi procesate secvenţial de browser.
+            </p>
+            <p><b>UTIL :</b></p>
+            <p>
+              Pentru a converti rapid și convenabil imaginile în format webp,
+              puteți utiliza instrumente online precum
+              <a href="https://squoosh.app/">squoosh.app</a>.
+            </p>
           </li>
           <li>
             <h3 id="art">Decuparea (art direction)</h3>
+            <p>
+              Tehnica de decupare este folosită pentru a încărca imagini
+              diferite pentru fiecare tip de ecran, oferind astfel
+              utilizatorului cât mai multe informații și detalii despre imagine,
+              chiar și pe dispozitivele cu ecran mic. De exemplu, se poate
+              încărca o versiune peisaj (landscape) sau portret (portrait) a
+              unei imagini, în funcție de orientarea sau rezoluția
+              dispozitivului.
+            </p>
+            <p>
+              Atributul media permite specificarea unei interogări media, care
+              va fi interpretată de browser în scopul de a selecta elementul
+              (source). Dacă interogarea media este evaluată ca fiind falsă
+              (adică nu corespunde), atunci elementul (source) respectiv este
+              ignorat.
+            </p>
+            <p>
+              (!-- Pentru ecrane mai late de 600px se va încărca photo-wide.jpg
+              --) <br />
+              (picture) <br />
+              (source srcset="photo-wide.jpg" media="(min-width: 600px)" /)
+              <br />
+              (img src="photo.jpg" alt="Fotografie" /) <br />
+              (/picture)
+            </p>
+            <p>
+              Accesați exemplul și modificați lățimea ferestrei de vizualizare.
+            </p>
+            <ul>
+              <li>
+                Pentru ecranele cu o lățime de până la 600px, va fi încărcată o
+                imagine portret de 400x600 pixeli.
+              </li>
+              <li>
+                Pentru ecranele cu o lățime de până la 601px și mai lată, va fi
+                încărcată o imagine peisaj de 800x400 pixeli.
+              </li>
+            </ul>
+
+            <!-- Exemplu -->
+            <div class="body1">
+              <p><b>Exemplu :</b></p>
+              <div class="container2">
+                <div class="thumb2">
+                  <picture>
+                    <source
+                      srcset="https://picsum.photos/id/237/400/600"
+                      media="(max-width: 600px)"
+                    />
+                    <source
+                      srcset="https://picsum.photos/id/237/800/400"
+                      media="(min-width: 601px)"
+                    />
+                    <img
+                      src="https://picsum.photos/id/237/300/200"
+                      alt="Cute puppy"
+                    />
+                  </picture>
+                </div>
+
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+                  molestiae, consequatur temporibus dignissimos, architecto
+                  assumenda illo excepturi quam odio saepe porro molestias illum
+                  impedit natus accusamus minus tempore sint numquam rem veniam
+                  doloribus ratione perspiciatis voluptas nostrum. Modi atque
+                  odio eum nemo? In molestias officia asperiores sit eligendi
+                  perspiciatis quasi dolores nihil voluptate iure quod cumque
+                  autem, nostrum, aliquid corporis harum amet rerum recusandae
+                  qui, voluptas magni aut sapiente maiores! Et odit ab laborum
+                  qui, itaque quidem saepe nesciunt id corrupti, ad tenetur! Et
+                  tempora assumenda animi dolore nemo iure voluptatum unde
+                  corporis, rerum dicta eum laudantium, deleniti praesentium.
+                  Eaque recusandae dolore quae, repellendus eos tenetur. Fugit
+                  exercitationem veniam sunt nesciunt placeat, enim ut amet
+                  asperiores. Error tenetur dicta corporis assumenda distinctio
+                  maiores corrupti ea blanditiis, dolorum dolore, sed, quibusdam
+                  qui facilis eveniet. Iure perferendis in exercitationem quia
+                  quidem quae perspiciatis vitae, aut ad quis consectetur
+                  voluptas, cupiditate nemo error.
+                </p>
+              </div>
+            </div>
+
+            <p>
+              Pentru suportul ecranelor cu o densitate mare de pixeli, fiecărui
+              element (source) trebuie să-i adăugăm un set de imagini cu
+              atribute srcset, și să nu uităm de setarea atributului sizes.
+            </p>
+            <p>
+              Haideți să adăugăm în codul exemplului anterior un suport pentru
+              ecranele Retina cu densitatea 2x, folosind descriptorul w. Vom
+              limita versiunea peisaj a imaginii la o lățime maximă de 800px,
+              pentru cazul în care fereastra de vizualizare este mai lată de
+              800px. În caz contrar, imaginea va fi întinsă la 100% din
+              fereastra de vizualizare.
+            </p>
+
+            <!-- Exemplu -->
+            <div class="body2">
+              <p><b>Exemplu :</b></p>
+              <div class="container2">
+                <div class="thumb2">
+                  <picture>
+                    <source
+                      srcset="
+                        https://picsum.photos/id/237/400/600  400w,
+                        https://picsum.photos/id/237/800/1200 800w
+                      "
+                      media="(max-width: 600px)"
+                      sizes="(min-width: 480px) 480px, 100vw"
+                    />
+                    <source
+                      srcset="
+                        https://picsum.photos/id/237/800/400   800w,
+                        https://picsum.photos/id/237/1600/800 1600w
+                      "
+                      media="(min-width: 601px)"
+                      sizes="(min-width: 800px) 800px, 100vw"
+                    />
+                    <img
+                      src="https://picsum.photos/id/237/300/200"
+                      alt="Cute puppy"
+                    />
+                  </picture>
+                </div>
+
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Minus porro possimus repellat reiciendis ab veniam maiores
+                  molestiae perferendis corporis dignissimos debitis alias, qui
+                  quam eos adipisci similique tenetur ex officiis eius
+                  necessitatibus cupiditate deleniti. Beatae reprehenderit eaque
+                  amet laboriosam, sed dicta! Necessitatibus alias id tempore
+                  numquam dolore, quis doloremque nobis saepe repellendus
+                  commodi repudiandae porro ad maiores aut. Eveniet, iste?
+                  Consectetur nisi error nulla eligendi praesentium aut dicta
+                  modi tenetur, a cum est quasi sit, neque, vitae ipsam
+                  distinctio exercitationem vero rem doloremque velit odit atque
+                  id. Id neque, illum repellat molestias, nemo accusantium quam
+                  iste voluptatem, ab aspernatur rem quo saepe in? Cumque labore
+                  soluta ea doloribus quos laboriosam vitae error? Dolor fugit,
+                  pariatur tempore eum adipisci voluptatibus, quaerat odio ipsam
+                  aliquam repellat odit perspiciatis sed cum obcaecati officiis
+                  ex consectetur incidunt? Hic distinctio animi, repudiandae
+                  assumenda pariatur, similique nulla exercitationem totam optio
+                  sed, dicta et eum neque ipsa.
+                </p>
+              </div>
+            </div>
           </li>
         </ol>
-
-        <!-- Exemplu -->
-        <div>
-          <p><b>Exemplu :</b></p>
-        </div>
       </section>
     </main>
   </body>

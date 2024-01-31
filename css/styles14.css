@@ -1,0 +1,182 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  text-indent: 10px;
+  position: relative;
+  margin: 10px;
+  background: yellow;
+  background: linear-gradient(
+    317deg,
+    rgb(207, 192, 52) 40%,
+    rgba(31, 170, 84, 0.44) 64%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+a {
+  display: flex;
+  text-decoration: none;
+  color: blue;
+  transition: text-decoration, color 500ms ease-in-out;
+}
+
+a:hover,
+a:focus {
+  color: red;
+  text-decoration: underline;
+}
+
+/* After & before */
+
+a::before,
+a::after {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  transition: display, color 500ms ease-in-out;
+}
+
+/* Adds and hides eyes icon after the link text */
+
+a::before {
+  margin-right: 16px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/599/599516.png");
+  display: inline;
+}
+
+a::after {
+  display: none;
+  margin-left: 16px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/599/599516.png");
+}
+
+/* Show arrow icon on hover */
+a:hover::after {
+  display: inline-block;
+}
+
+a:hover::before {
+  display: none;
+}
+
+p {
+  text-indent: 15px;
+  text-align: justify;
+}
+
+div {
+  padding: 10px 10px;
+}
+
+img {
+  display: block;
+}
+
+@media screen {
+  body {
+    margin: 10px 10px;
+    background-color: yellowgreen;
+  }
+}
+
+/* Example */
+.body {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+/* Example */
+
+.thumb {
+  max-width: 960px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+img {
+  /* display: block; */
+  max-width: 100%;
+}
+
+/* Example */
+
+/* 1x screens, default value, 320x240 image */
+.box1 {
+  margin: 0 auto;
+  width: 320px;
+  height: 240px;
+  background-image: url("https://picsum.photos/id/237/320/240");
+  background-size: 320px 240px;
+}
+
+/* 2x screens, retina, 640x480 image */
+@media (min-resolution: 192dpi) {
+  .box {
+    background-image: url("https://picsum.photos/id/237/640/480");
+  }
+}
+
+/* Example */
+
+.thumb1 {
+  width: 320px;
+  height: 240px;
+  margin: 0 auto;
+}
+
+.body1 {
+  margin-top: 20px;
+  color: #2a2a2a;
+  line-height: 1.5;
+  font-family: sans-serif;
+  background-color: aqua;
+}
+
+img {
+  /* display: block;
+  max-width: 100%; */
+  height: auto;
+}
+
+.container1 {
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Example */
+body2 {
+  margin: 0;
+  color: #2a2a2a;
+  line-height: 1.5;
+  font-family: sans-serif;
+}
+
+/* img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+} */
+
+.container2 {
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thumb2 {
+  display: flex;
+  justify-content: center;
+}
